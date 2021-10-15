@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Lottery Simulator</title>
+</head>
+
+<style type="text/css">
+	html {
+		font-family: Optima, sans-serif;
+	}
+
+	body {
+		background-image:url('background.jpg');
+		background-repeat:no-repeat;
+		background-attachment:fixed;
+		background-size:cover;
+	}
+
+	div, header {
+		text-align: center;
+		background-color:rgba(225,225,225,0.7);
+		color:#000;
+		max-width: 50%;
+		box-sizing: border-box;
+		padding:25px;
+		margin-left:25%;
+		margin-right:25%;
+		margin-bottom: 20px;
+	}
+
+</style>
+
+<body>
+	<header> 
+		<h1 align="center"> Lucky For Life </h1>
+		<h2 align="center" style="font-size: 20px"> Lottery Simulator </h2>
+	</header>
+
+	<div>
+		<script language="javascript">
+			function getRandomInt(min, max) {
+				return Math.floor(Math.random() * (max - min) + min);
+			}
+
+			function payout(num_winning, won_lb) {
+				if (num_winning == 5 && won_lb == 1)
+					document.write("<br><strong>Your winnings:</strong><br>$7000 a WEEK for LIFE");
+				else if (num_winning == 5 && won_lb == 0)
+					document.write("<br><strong>Your winnings:</strong><br>$25000 a YEAR for LIFE");
+				else if (num_winning == 4 && won_lb == 1)
+					document.write("<br><strong>Your winnings:</strong><br>$5000");
+				else if (num_winning == 4 && won_lb == 0)
+					document.write("<br><strong>Your winnings:</strong><br>$200");
+				else if (num_winning == 3 && won_lb == 1)
+					document.write("<br><strong>Your winnings:</strong><br>$150");
+				else if (num_winning == 3 && won_lb == 0)
+					document.write("<br><strong>Your winnings:</strong><br>$20");
+				else if (num_winning == 2 && won_lb == 1)
+					document.write("<br><strong>Your winnings:</strong><br>$25");
+				else if (num_winning == 2 && won_lb == 0)
+					document.write("<br><strong>Your winnings:</strong><br>$3");
+				else if (num_winning == 1 && won_lb == 1)
+					document.write("<br><strong>Your winnings:</strong><br>$6");
+				else if (num_winning == 0 && won_lb == 1)
+					document.write("<br><strong>Your winnings:</strong><br>$4");
+				else document.write("<br><strong>Your winnings:</strong><br>None");
+			}
+
+			function sort_array(arr) {
+				for (i = 0; i < arr.length; i++) {
+					for (j = 0; j < i; j++) {
+				        if (parseInt(arr[i]) < parseInt(arr[j])) {
+				          x = arr[i];
+				          arr[i] = arr[j];
+				          arr[j] = x;
+				        }
+				    }
+				}
+				return arr;
+			}
+
+			winning_nums_raw = prompt("Please enter the five winning values, separated by one space each. ");
+			winning_lb = prompt("Please enter the lucky ball value. ");
+			winning_nums = winning_nums_raw.split(" ");
+
+			random_pick = [getRandomInt(1,49),getRandomInt(1,49),getRandomInt(1,49),getRandomInt(1,49),getRandomInt(1,49)];
+			random_lb = getRandomInt(1,19);
+			document.write("<strong>Random Pick:</strong><br>");
+			for (i=0; i < random_pick.length; i++)
+				document.write(random_pick[i] + " ");
+			document.write("lucky " + random_lb);
+
+			random_pick_sorted = sort_array(random_pick);
+			document.write("<br><br><strong>Pick sorted:</strong><br>");
+			for (i=0; i < random_pick_sorted.length; i++)
+				document.write(random_pick_sorted[i] + " ");
+			document.write("lucky " + random_lb);
+
+			winning_nums_sorted = sort_array(winning_nums);
+			document.write("<br><br><strong>Winning numbers sorted:</strong><br>");
+			for (i=0; i < winning_nums_sorted.length; i++)
+				document.write(winning_nums_sorted[i] + " ");
+			document.write("lucky " + winning_lb);
+
+			num_winning = 0;
+			won_lb = 0;
+			if (random_pick_sorted.includes(parseInt(winning_nums[0]))) 
+				num_winning++;
+			if (random_pick_sorted.includes(parseInt(winning_nums[1])))
+				num_winning++;
+			if (random_pick_sorted.includes(parseInt(winning_nums[2])))
+				num_winning++;
+			if (random_pick_sorted.includes(parseInt(winning_nums[3])))
+				num_winning++;
+			if (random_pick_sorted.includes(parseInt(winning_nums[4])))
+				num_winning++;
+			if (random_lb == parseInt(winning_lb))
+				won_lb++;
+			document.write("<br><br><strong>Number matching:</strong><br>" + num_winning);
+
+			if (won_lb==1)
+				document.write("<br><br><strong>Lucky ball matched?</strong><br>YES!<br>");
+			else document.write("<br><br><strong>Lucky ball matches?</strong><br>No<br>");
+
+			payout(num_winning, won_lb);
+
+		</script>
+	</div>
+</body>
+</html>
